@@ -1,0 +1,56 @@
+name: smart_landmarks
+description: "CSE 489 Lab Exam - Smart Geo-Tagged Landmarks (v5)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Networking
+  http: ^1.2.1
+
+  # Maps
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  # Location
+  geolocator: ^12.0.0
+
+  # Local database (offline cache, visit history, queue)
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  path_provider: ^2.1.3
+
+  # Background work (WorkManager wrapper for Android)
+  workmanager: ^0.10.7
+
+  # Connectivity detection
+  connectivity_plus: ^6.0.3
+
+  # Image selection (Photo Picker) and file handling
+  image_picker: ^1.1.2
+
+  # Networked image loading with disk cache (helps offline image display)
+  cached_network_image: ^3.3.1
+
+  # Simple state notifications
+  provider: ^6.1.2
+
+  # Date formatting
+  intl: ^0.19.0
+
+  # Preferences (small key/value flags, e.g. last sync time)
+  shared_preferences: ^2.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
