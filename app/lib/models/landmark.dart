@@ -1,13 +1,4 @@
-/// Represents a single Smart Geo-Tagged Landmark.
-///
-/// Mirrors the fields returned by `?action=get_landmarks`:
-/// id, title, lat, lon, image, score, visit_count, avg_distance.
-///
-/// [isDeleted] is a LOCAL-ONLY flag. The server performs a soft delete and
-/// simply stops returning the landmark from get_landmarks. Since we still
-/// want the user to be able to see & restore something they just deleted,
-/// we keep deleted landmarks in the local cache and mark them instead of
-/// removing them, reconciling with the server's list on every refresh.
+
 class Landmark {
   final int id;
   final String title;

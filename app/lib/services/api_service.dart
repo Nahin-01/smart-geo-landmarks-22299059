@@ -53,7 +53,7 @@ class ApiService {
   Future<List<Landmark>> getLandmarks() async {
     final res = await http.get(_uri('get_landmarks')).timeout(const Duration(seconds: 20));
     final body = _decode(res);
-    final list = (body['landmarks'] ?? body['list'] ?? body['data'] ?? []) as List;
+    final list = (body['landmarks'] ?? body['list'] ?? body['data'] ?? body['value'] ?? []) as List;
     return list
         .whereType<Map>()
         .map((e) => Landmark.fromJson(Map<String, dynamic>.from(e)))

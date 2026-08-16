@@ -3,18 +3,6 @@ import 'package:sqflite/sqflite.dart';
 import '../models/landmark.dart';
 import '../models/visit.dart';
 
-/// Local single-source-of-truth database (Repository pattern).
-///
-/// - `landmarks`      : cached copy of everything the server has told us
-///                       about, including a local-only isDeleted flag so
-///                       soft-deleted landmarks can still be restored.
-/// - `visits`          : completed (or failed) visit history entries.
-/// - `pending_jobs`     : visit jobs submitted to the server whose
-///                       get_job_status result hasn't come back as 'done'
-///                       yet. Survives app restarts so WorkManager can
-///                       resume polling.
-/// - `queued_visits`    : visit requests made while offline, waiting to be
-///                       resent once connectivity returns.
 class DatabaseService {
   DatabaseService._internal();
   static final DatabaseService instance = DatabaseService._internal();
@@ -82,11 +70,7 @@ class DatabaseService {
 
   // ---------------- Landmarks (cache) ----------------
 
-  /// Merge a fresh server list into the cache. Anything currently marked
-  /// isDeleted locally that the server no longer returns stays as-is
-  /// (still deleted, still restorable). Anything the server DOES return
-  /// is written through as the source of truth for its fields, and its
-  /// isDeleted flag is cleared (a restore may have happened elsewhere).
+ 
   Future<void> upsertLandmarksFromServer(List<Landmark> serverLandmarks) async {
     final db = await database;
     final batch = db.batch();

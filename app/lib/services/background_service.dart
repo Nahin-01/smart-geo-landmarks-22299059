@@ -7,8 +7,6 @@ import '../models/visit.dart';
 const String kPeriodicSyncTask = 'smart_landmarks_periodic_sync';
 const String kOneOffPollTask = 'smart_landmarks_poll_job';
 
-/// Entry point Android calls into on a background isolate. Must be a
-/// top-level (or static) function annotated with vm:entry-point.
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
@@ -37,10 +35,7 @@ void callbackDispatcher() {
 class BackgroundService {
   static Future<void> initialize() async {
     await Workmanager().initialize(callbackDispatcher);
-    // Requirement 10.1 + 10.2: one guaranteed, constrained, periodic task
-    // that both (a) polls any still-pending visit jobs and (b) drains the
-    // offline visit queue with retry/backoff. 15 minutes is the Android
-    // WorkManager minimum periodic interval.
+    
     await Workmanager().registerPeriodicTask(
       kPeriodicSyncTask,
       kPeriodicSyncTask,
@@ -52,11 +47,7 @@ class BackgroundService {
     );
   }
 
-  /// Fired right after a visit is submitted so the user sees a result
-  /// within a few seconds instead of waiting for the next periodic tick.
-  /// Foreground polling (in the UI) also runs in parallel for immediate
-  /// feedback while the app is open; this one-off task guarantees the
-  /// result is captured even if the app is backgrounded or killed.
+  
   static Future<void> scheduleImmediatePoll(int jobId) async {
     await Workmanager().registerOneOffTask(
       '${kOneOffPollTask}_$jobId',

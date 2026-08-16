@@ -39,9 +39,7 @@ class Visit {
   }
 }
 
-/// A visit job that has been submitted to the server and is awaiting
-/// get_job_status to report 'done'. Persisted so WorkManager can resume
-/// polling even after the app process dies/restarts.
+
 class PendingJob {
   final int localId;
   final int jobId;
